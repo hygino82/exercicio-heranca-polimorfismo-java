@@ -1,10 +1,12 @@
 package entities;
 
+import java.util.Locale;
+
 public class Product {
-	
-	private String name;
-	private Double price;
-	
+
+	protected String name;
+	protected Double price;
+
 	public Product() {
 	}
 
@@ -29,5 +31,9 @@ public class Product {
 		this.price = price;
 	}
 
+	public String priceTag() {
+		Locale.setDefault(Locale.US);
+		return name + " $ " + String.format("%.2f", price);
+	}
 
 }
