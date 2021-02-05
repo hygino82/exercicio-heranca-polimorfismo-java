@@ -1,19 +1,24 @@
 package application;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 
 import entities.ImportedProduct;
 import entities.Product;
+import entities.UsedProduct;
 
 public class Program {
 
 	public static void main(String[] args) {
 		Locale.setDefault(Locale.US);
 		Scanner sc = new Scanner(System.in);
-		// SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		DateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
 		List<Product> list = new ArrayList<>();
 
@@ -37,15 +42,24 @@ public class Program {
 				Product prod = new ImportedProduct(name, price, customsFee);
 				list.add(prod);
 			}
-			/*
-			 * if (type == 'u' || type == 'U') {
-			 * System.out.print("Manufacture date (DD/MM/YYYY): "); try { String day =
-			 * sc.nextLine(); Date manufactureDate = sdf.parse(day); Product prod = new
-			 * UsedProduct(name, price, manufactureDate); list.add(prod); } catch
-			 * (ParseException e) { e.printStackTrace();
-			 * 
-			 * }
-			 */
+
+			else if (type == 'u' || type == 'U') {
+				System.out.print("Manufacture date (DD/MM/YYYY): ");
+
+				try {
+					String day = sc.next();
+
+					Date manufactureDate;
+
+					manufactureDate = sdf.parse(day);
+					Product prod = new UsedProduct(name, price, manufactureDate);
+					list.add(prod);
+				} catch (ParseException e) {
+					System.out.println("Error");
+					e.printStackTrace();
+				}
+
+			}
 
 			else {
 				Product prod = new Product(name, price);
